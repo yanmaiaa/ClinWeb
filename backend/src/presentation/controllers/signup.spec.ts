@@ -1,8 +1,5 @@
-import { InvalidParamError } from '../errors/invalid-param-error'
-import { MissingParamError } from '../errors/missing-param-error'
-import { ServerError } from '../errors/server-error'
-import { EmailValidator } from '../protocols/email-validator'
-import { FieldValidator } from '../protocols/field-validator'
+import { InvalidParamError, MissingParamError, ServerError } from '../errors'
+import { EmailValidator, FieldValidator } from '../protocols'
 import { SignUpController } from './signup'
 
 interface SutTypes {
@@ -33,25 +30,6 @@ const makeSut = (): SutTypes => {
 }
 
 describe('SignUp Controller', () => {
-  test('Should call handle with httpRequest', () => {
-    const { sut } = makeSut()
-    const handleSpy = jest.spyOn(sut, 'handle')
-
-    const httpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password',
-        isProfessional: 1,
-        professionName: 'any_profession'
-      }
-    }
-
-    sut.handle(httpRequest)
-    expect(handleSpy).toHaveBeenCalledWith(httpRequest)
-  })
-
   test('Should return 400 if no name is provided', () => {
     const { sut } = makeSut()
 
@@ -250,6 +228,25 @@ describe('SignUp Controller', () => {
 
     sut.handle(httpRequest)
     expect(fieldValidatorSpy).toHaveBeenCalledWith(true)
+  })
+
+  test('Should call handle with httpRequest', () => {
+    const { sut } = makeSut()
+    const handleSpy = jest.spyOn(sut, 'handle')
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password',
+        isProfessional: 1,
+        professionName: 'any_profession'
+      }
+    }
+
+    sut.handle(httpRequest)
+    expect(handleSpy).toHaveBeenCalledWith(httpRequest)
   })
 
   test('Should return 500 if EmailValidator throws', () => {
