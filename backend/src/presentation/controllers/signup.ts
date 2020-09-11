@@ -15,14 +15,17 @@ export class SignUpController implements Controller {
   handle = (httpRequest: HttpRequest): HttpResponse => {
     const requiredField = ['name', 'email', 'password', 'passwordConfirmation', 'isProfessional']
     for (const field of requiredField) {
-      if (!httpRequest.body[field]) {
+      if (httpRequest.body[field] === undefined) {
         return badRequest(new MissingParamError(field))
       }
     }
     const optionalField = ['professionName']
     for (const field of optionalField) {
-      if (httpRequest.body.isProfessional && !httpRequest.body[field]) {
+      if (httpRequest.body.isProfessional && httpRequest.body[field] === undefined) {
         return badRequest(new InvalidParamError(field))
+      }
+      if (!httpRequest.body.isProfessional && httpRequest.body[field]) {
+        return badRequest(new InvalidParamError('professionName must no be provided'))
       }
     }
     const isValid = this.emailValidator.isValid(httpRequest.body.email)
