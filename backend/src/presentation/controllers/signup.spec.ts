@@ -1,11 +1,18 @@
 import { InvalidParamError } from '../errors/invalid-param-error'
 import { MissingParamError } from '../errors/missing-param-error'
 import { EmailValidator } from '../protocols/email-validator'
+import { FieldValidator } from '../protocols/field-validator'
 import { SignUpController } from './signup'
 
 interface SutTypes {
   sut: SignUpController
   emailValidatorStub: EmailValidator
+  fieldValidatorStub: FieldValidatorStub
+}
+class FieldValidatorStub implements FieldValidator {
+  isNumber = (value: any): boolean => {
+    return true
+  }
 }
 class EmailValidatorStub implements EmailValidator {
   isValid = (email: string): boolean => {
@@ -15,10 +22,12 @@ class EmailValidatorStub implements EmailValidator {
 
 const makeSut = (): SutTypes => {
   const emailValidatorStub = new EmailValidatorStub()
-  const sut = new SignUpController(emailValidatorStub)
+  const fieldValidatorStub = new FieldValidatorStub()
+  const sut = new SignUpController(fieldValidatorStub, emailValidatorStub)
   return {
     sut,
-    emailValidatorStub
+    emailValidatorStub,
+    fieldValidatorStub
   }
 }
 
@@ -171,7 +180,8 @@ describe('SignUp Controller', () => {
   })
 
   test('Should return 400 if isProfessional is not a number', () => {
-    const { sut } = makeSut()
+    const { sut, fieldValidatorStub } = makeSut()
+    jest.spyOn(fieldValidatorStub, 'isNumber').mockReturnValueOnce(false)
 
     const httpRequest = {
       body: {
