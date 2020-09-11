@@ -42,7 +42,7 @@ describe('SignUp Controller', () => {
         email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 0,
+        isProfessional: 1,
         professionName: 'any_profession'
       }
     }
@@ -59,8 +59,7 @@ describe('SignUp Controller', () => {
         email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 0,
-        professionName: 'any_profession'
+        isProfessional: 0
       }
     }
 
@@ -77,8 +76,7 @@ describe('SignUp Controller', () => {
         name: 'any_name',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 0,
-        professionName: 'any_profession'
+        isProfessional: 0
       }
     }
 
@@ -95,8 +93,7 @@ describe('SignUp Controller', () => {
         name: 'any_name',
         email: 'any_email@mail.com',
         passwordConfirmation: 'any_password',
-        isProfessional: 0,
-        professionName: 'any_profession'
+        isProfessional: 0
       }
     }
 
@@ -113,8 +110,7 @@ describe('SignUp Controller', () => {
         name: 'any_name',
         email: 'any_email@mail.com',
         password: 'any_password',
-        isProfessional: 0,
-        professionName: 'any_profession'
+        isProfessional: 0
       }
     }
 
@@ -131,8 +127,7 @@ describe('SignUp Controller', () => {
         name: 'any_name',
         email: 'any_email@mail.com',
         password: 'any_password',
-        passwordConfirmation: 'any_password',
-        professionName: 'any_profession'
+        passwordConfirmation: 'any_password'
       }
     }
 
@@ -141,7 +136,7 @@ describe('SignUp Controller', () => {
     expect(httpResponse.body).toEqual(new MissingParamError('isProfessional'))
   })
 
-  test('Should return 400 if no professionName is provided', () => {
+  test('Should return 400 if no professionName is provided when isProfessional is true', () => {
     const { sut } = makeSut()
 
     const httpRequest = {
@@ -156,7 +151,7 @@ describe('SignUp Controller', () => {
 
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new MissingParamError('professionName'))
+    expect(httpResponse.body).toEqual(new InvalidParamError('professionName'))
   })
 
   test('Should return 400 if an invalid email is provided', () => {
@@ -197,5 +192,24 @@ describe('SignUp Controller', () => {
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new InvalidParamError('isProfessional'))
+  })
+
+  test('Should return 400 if isProfessional is not true and professionName is provided', () => {
+    const { sut } = makeSut()
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password',
+        isProfessional: 0,
+        professionName: 'any_profession'
+      }
+    }
+
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toEqual(new InvalidParamError('professionName must no be provided'))
   })
 })
