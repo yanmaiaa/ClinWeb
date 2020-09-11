@@ -60,7 +60,7 @@ describe('SignUp Controller', () => {
         email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 0
+        isProfessional: false
       }
     }
 
@@ -77,7 +77,7 @@ describe('SignUp Controller', () => {
         name: 'any_name',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 1
+        isProfessional: true
       }
     }
 
@@ -94,7 +94,7 @@ describe('SignUp Controller', () => {
         name: 'any_name',
         email: 'any_email@mail.com',
         passwordConfirmation: 'any_password',
-        isProfessional: 0
+        isProfessional: false
       }
     }
 
@@ -111,7 +111,7 @@ describe('SignUp Controller', () => {
         name: 'any_name',
         email: 'any_email@mail.com',
         password: 'any_password',
-        isProfessional: 0
+        isProfessional: false
       }
     }
 
@@ -146,7 +146,7 @@ describe('SignUp Controller', () => {
         email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 1
+        isProfessional: true
       }
     }
 
@@ -165,7 +165,7 @@ describe('SignUp Controller', () => {
         email: 'invalid_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 1,
+        isProfessional: true,
         professionName: 'any_profession'
       }
     }
@@ -204,7 +204,7 @@ describe('SignUp Controller', () => {
         email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 0,
+        isProfessional: false,
         professionName: 'any_profession'
       }
     }
@@ -224,7 +224,7 @@ describe('SignUp Controller', () => {
         email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 1,
+        isProfessional: true,
         professionName: 'any_profession'
       }
     }
@@ -243,13 +243,13 @@ describe('SignUp Controller', () => {
         email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 1,
+        isProfessional: true,
         professionName: 'any_profession'
       }
     }
 
     sut.handle(httpRequest)
-    expect(fieldValidatorSpy).toHaveBeenCalledWith(1)
+    expect(fieldValidatorSpy).toHaveBeenCalledWith(true)
   })
 
   test('Should return 500 if EmailValidator throws', () => {
@@ -264,7 +264,7 @@ describe('SignUp Controller', () => {
         email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 1,
+        isProfessional: true,
         professionName: 'any_profession'
       }
     }
@@ -286,7 +286,7 @@ describe('SignUp Controller', () => {
         email: 'any_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 1,
+        isProfessional: true,
         professionName: 'any_profession'
       }
     }
