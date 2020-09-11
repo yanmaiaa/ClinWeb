@@ -231,4 +231,23 @@ describe('SignUp Controller', () => {
     sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com')
   })
+
+  test('Should call FieldValidator with correct isProfessional', () => {
+    const { sut, fieldValidatorStub } = makeSut()
+    const fieldValidatorSpy = jest.spyOn(fieldValidatorStub, 'isNumber')
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password',
+        isProfessional: 1,
+        professionName: 'any_profession'
+      }
+    }
+
+    sut.handle(httpRequest)
+    expect(fieldValidatorSpy).toHaveBeenCalledWith(1)
+  })
 })
