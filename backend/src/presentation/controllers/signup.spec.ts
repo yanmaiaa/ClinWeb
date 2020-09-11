@@ -77,7 +77,7 @@ describe('SignUp Controller', () => {
         name: 'any_name',
         password: 'any_password',
         passwordConfirmation: 'any_password',
-        isProfessional: 0
+        isProfessional: 1
       }
     }
 
@@ -152,7 +152,7 @@ describe('SignUp Controller', () => {
 
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new InvalidParamError('professionName'))
+    expect(httpResponse.body).toEqual(new MissingParamError('professionName'))
   })
 
   test('Should return 400 if an invalid email is provided', () => {

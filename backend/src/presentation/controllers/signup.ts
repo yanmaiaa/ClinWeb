@@ -23,7 +23,7 @@ export class SignUpController implements Controller {
       const optionalField = ['professionName']
       for (const field of optionalField) {
         if (httpRequest.body.isProfessional && httpRequest.body[field] === undefined) {
-          return badRequest(new InvalidParamError(field))
+          return badRequest(new MissingParamError(field))
         }
         if (!httpRequest.body.isProfessional && httpRequest.body[field]) {
           return badRequest(new InvalidParamError('professionName must no be provided'))
