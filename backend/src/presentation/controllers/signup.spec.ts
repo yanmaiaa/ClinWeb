@@ -5,22 +5,30 @@ import { SignUpController } from './signup'
 interface SutTypes {
   sut: SignUpController
   emailValidatorStub: EmailValidator
-  fieldValidatorStub: FieldValidatorStub
+  fieldValidatorStub: FieldValidator
 }
-class FieldValidatorStub implements FieldValidator {
-  isNumber = (value: any): boolean => {
-    return true
+
+const makeFieldValidatorStub = (): FieldValidator => {
+  class FieldValidatorStub implements FieldValidator {
+    isNumber = (value: any): boolean => {
+      return true
+    }
   }
+  return new FieldValidatorStub()
 }
-class EmailValidatorStub implements EmailValidator {
-  isValid = (email: string): boolean => {
-    return true
+
+const makeEmailValidatorStub = (): EmailValidator => {
+  class EmailValidatorStub implements EmailValidator {
+    isValid = (email: string): boolean => {
+      return true
+    }
   }
+  return new EmailValidatorStub()
 }
 
 const makeSut = (): SutTypes => {
-  const emailValidatorStub = new EmailValidatorStub()
-  const fieldValidatorStub = new FieldValidatorStub()
+  const emailValidatorStub = makeEmailValidatorStub()
+  const fieldValidatorStub = makeFieldValidatorStub()
   const sut = new SignUpController(fieldValidatorStub, emailValidatorStub)
   return {
     sut,
