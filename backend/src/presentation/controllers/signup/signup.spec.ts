@@ -181,7 +181,7 @@ describe('SignUp Controller', () => {
     expect(httpResponse.body).toEqual(new InvalidParamError('email'))
   })
 
-  test('Should return 400 if isProfessional is not a number', async () => {
+  test('Should return 400 if isProfessional is not boolean', async () => {
     const { sut, booleanValidatorStub } = makeSut()
     jest.spyOn(booleanValidatorStub, 'isBoolean').mockReturnValueOnce(false)
 
