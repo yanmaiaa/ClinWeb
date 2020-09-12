@@ -4,5 +4,5 @@ export interface AccountModel {
   email: string
   password: string
   isProfessional: boolean
-  professionName: string
+  professionName?: string
 }
