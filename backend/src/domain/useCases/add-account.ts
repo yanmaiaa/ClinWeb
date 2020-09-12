@@ -4,8 +4,8 @@ export interface AddAccountModel {
   name: string
   email: string
   password: string
-  isProfessional: boolean
-  professionName: string
+  isProfessional: string
+  professionName?: string
 }
 
 export interface AddAccount {

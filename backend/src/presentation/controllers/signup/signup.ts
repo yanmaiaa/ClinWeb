@@ -18,11 +18,18 @@ export class SignUpController implements Controller {
         }
       }
       const optionalField = ['professionName']
+      const falsyBoolean = ['0', 'false']
+      const truthBoolean = ['1', 'true']
       for (const field of optionalField) {
-        if (httpRequest.body.isProfessional && httpRequest.body[field] === undefined) {
+        if (httpRequest.body.isProfessional &&
+            truthBoolean.includes(httpRequest.body.isProfessional) &&
+            httpRequest.body[field] === undefined) {
           return badRequest(new MissingParamError(field))
         }
-        if (!httpRequest.body.isProfessional && httpRequest.body[field]) {
+        if ((!httpRequest.body.isProfessional ||
+          (httpRequest.body.isProfessional &&
+            falsyBoolean.includes(httpRequest.body.isProfessional))
+        ) && httpRequest.body[field]) {
           return badRequest(new InvalidParamError('professionName must no be provided'))
         }
       }
