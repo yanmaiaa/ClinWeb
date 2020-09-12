@@ -21,4 +21,12 @@ describe('BooleanValidatorAdapter', () => {
     const isBoolean = sut.isBoolean('true')
     expect(isBoolean).toBe(true)
   })
+
+  test('Should call isBoolean with correct value', () => {
+    const sut = new BooleanValidatorAdapter()
+    const isBooleanSpy = jest.spyOn(validator, 'isBoolean')
+
+    sut.isBoolean('false')
+    expect(isBooleanSpy).toHaveBeenCalledWith('false')
+  })
 })
