@@ -1,3 +1,4 @@
+import { AddAccount } from '../../domain/useCases/add-account'
 import { InvalidParamError, MissingParamError } from '../errors'
 import { badRequest, serverError } from '../helpers/http-helper'
 import { Controller, EmailValidator, BooleanValidator, HttpRequest, HttpResponse } from '../protocols'
@@ -5,7 +6,8 @@ import { Controller, EmailValidator, BooleanValidator, HttpRequest, HttpResponse
 export class SignUpController implements Controller {
   constructor (
     private readonly booleanValidator: BooleanValidator,
-    private readonly emailValidator: EmailValidator
+    private readonly emailValidator: EmailValidator,
+    private readonly addAccount: AddAccount
   ) {}
 
   handle = (httpRequest: HttpRequest): HttpResponse => {
@@ -25,7 +27,7 @@ export class SignUpController implements Controller {
           return badRequest(new InvalidParamError('professionName must no be provided'))
         }
       }
-      const { email, password, passwordConfirmation, isProfessional } = httpRequest.body
+      const { name, email, password, passwordConfirmation, isProfessional, professionName = null } = httpRequest.body
       if (password !== passwordConfirmation) {
         return badRequest(new InvalidParamError('passwordConfirmation'))
       }
@@ -33,6 +35,13 @@ export class SignUpController implements Controller {
       if (!isValid) return badRequest(new InvalidParamError('email'))
       const isBoolean = this.booleanValidator.isBoolean(isProfessional)
       if (!isBoolean) return badRequest(new InvalidParamError('isProfessional'))
+      this.addAccount.add({
+        name,
+        email,
+        password,
+        isProfessional,
+        professionName
+      })
     } catch (error) {
       return serverError()
     }
