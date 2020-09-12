@@ -2,7 +2,7 @@ import React from 'react';
 import Styles from './Footer.module.css';
 
 const Footer = () => {
-  return <div className={Styles.footer}>Footer</div>;
+  return <footer className={Styles.footer}></footer>;
 };
 
 export default Footer;
