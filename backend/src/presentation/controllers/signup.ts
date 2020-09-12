@@ -1,10 +1,10 @@
 import { InvalidParamError, MissingParamError } from '../errors'
 import { badRequest, serverError } from '../helpers/http-helper'
-import { Controller, EmailValidator, FieldValidator, HttpRequest, HttpResponse } from '../protocols'
+import { Controller, EmailValidator, BooleanValidator, HttpRequest, HttpResponse } from '../protocols'
 
 export class SignUpController implements Controller {
   constructor (
-    private readonly fieldValidator: FieldValidator,
+    private readonly booleanValidator: BooleanValidator,
     private readonly emailValidator: EmailValidator
   ) {}
 
@@ -31,8 +31,8 @@ export class SignUpController implements Controller {
       }
       const isValid = this.emailValidator.isValid(email)
       if (!isValid) return badRequest(new InvalidParamError('email'))
-      const isNumber = this.fieldValidator.isNumber(isProfessional)
-      if (!isNumber) return badRequest(new InvalidParamError('isProfessional'))
+      const isBoolean = this.booleanValidator.isBoolean(isProfessional)
+      if (!isBoolean) return badRequest(new InvalidParamError('isProfessional'))
     } catch (error) {
       return serverError()
     }

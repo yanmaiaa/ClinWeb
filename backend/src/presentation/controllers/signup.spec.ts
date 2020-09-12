@@ -1,20 +1,20 @@
 import { InvalidParamError, MissingParamError, ServerError } from '../errors'
-import { EmailValidator, FieldValidator } from '../protocols'
+import { EmailValidator, BooleanValidator } from '../protocols'
 import { SignUpController } from './signup'
 
 interface SutTypes {
   sut: SignUpController
   emailValidatorStub: EmailValidator
-  fieldValidatorStub: FieldValidator
+  booleanValidatorStub: BooleanValidator
 }
 
-const makeFieldValidatorStub = (): FieldValidator => {
-  class FieldValidatorStub implements FieldValidator {
-    isNumber = (value: any): boolean => {
+const makeBooleanValidatorStub = (): BooleanValidator => {
+  class BooleanValidatorStub implements BooleanValidator {
+    isBoolean = (value: any): boolean => {
       return true
     }
   }
-  return new FieldValidatorStub()
+  return new BooleanValidatorStub()
 }
 
 const makeEmailValidatorStub = (): EmailValidator => {
@@ -28,12 +28,12 @@ const makeEmailValidatorStub = (): EmailValidator => {
 
 const makeSut = (): SutTypes => {
   const emailValidatorStub = makeEmailValidatorStub()
-  const fieldValidatorStub = makeFieldValidatorStub()
-  const sut = new SignUpController(fieldValidatorStub, emailValidatorStub)
+  const booleanValidatorStub = makeBooleanValidatorStub()
+  const sut = new SignUpController(booleanValidatorStub, emailValidatorStub)
   return {
     sut,
     emailValidatorStub,
-    fieldValidatorStub
+    booleanValidatorStub
   }
 }
 
@@ -162,8 +162,8 @@ describe('SignUp Controller', () => {
   })
 
   test('Should return 400 if isProfessional is not a number', () => {
-    const { sut, fieldValidatorStub } = makeSut()
-    jest.spyOn(fieldValidatorStub, 'isNumber').mockReturnValueOnce(false)
+    const { sut, booleanValidatorStub } = makeSut()
+    jest.spyOn(booleanValidatorStub, 'isBoolean').mockReturnValueOnce(false)
 
     const httpRequest = {
       body: {
@@ -239,8 +239,8 @@ describe('SignUp Controller', () => {
   })
 
   test('Should call FieldValidator with correct isProfessional', () => {
-    const { sut, fieldValidatorStub } = makeSut()
-    const fieldValidatorSpy = jest.spyOn(fieldValidatorStub, 'isNumber')
+    const { sut, booleanValidatorStub } = makeSut()
+    const fieldValidatorSpy = jest.spyOn(booleanValidatorStub, 'isBoolean')
 
     const httpRequest = {
       body: {
@@ -299,8 +299,8 @@ describe('SignUp Controller', () => {
   })
 
   test('Should return 500 if FieldValidator throws', () => {
-    const { sut, fieldValidatorStub } = makeSut()
-    jest.spyOn(fieldValidatorStub, 'isNumber').mockImplementationOnce(() => {
+    const { sut, booleanValidatorStub } = makeSut()
+    jest.spyOn(booleanValidatorStub, 'isBoolean').mockImplementationOnce(() => {
       throw new Error()
     })
 

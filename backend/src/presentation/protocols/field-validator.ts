@@ -1,3 +1,3 @@
-export interface FieldValidator {
-  isNumber?: (email: any) => boolean
+export interface BooleanValidator {
+  isBoolean: (value: any) => boolean
 }
