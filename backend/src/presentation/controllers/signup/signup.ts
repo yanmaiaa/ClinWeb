@@ -34,13 +34,17 @@ export class SignUpController implements Controller {
       if (!isValid) return badRequest(new InvalidParamError('email'))
       const isBoolean = this.booleanValidator.isBoolean(isProfessional)
       if (!isBoolean) return badRequest(new InvalidParamError('isProfessional'))
-      this.addAccount.add({
+      const account = this.addAccount.add({
         name,
         email,
         password,
         isProfessional,
         professionName
       })
+      return {
+        statusCode: 200,
+        body: account
+      }
     } catch (error) {
       return serverError()
     }
