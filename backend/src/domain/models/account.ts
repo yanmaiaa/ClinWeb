@@ -3,6 +3,6 @@ export interface AccountModel {
   name: string
   email: string
   password: string
-  isProfessional: boolean
+  isProfessional: string
   professionName?: string
 }
