@@ -1,3 +1,3 @@
 export * from './controller'
-export * from './field-validator'
+export * from './boolean-validator'
 export * from './http'
