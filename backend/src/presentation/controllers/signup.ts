@@ -25,6 +25,9 @@ export class SignUpController implements Controller {
           return badRequest(new InvalidParamError('professionName must no be provided'))
         }
       }
+      if (httpRequest.body.password !== httpRequest.body.passwordConfirmation) {
+        return badRequest(new InvalidParamError('passwordConfirmation'))
+      }
       const isValid = this.emailValidator.isValid(httpRequest.body.email)
       if (!isValid) return badRequest(new InvalidParamError('email'))
       const isNumber = this.fieldValidator.isNumber(httpRequest.body.isProfessional)
