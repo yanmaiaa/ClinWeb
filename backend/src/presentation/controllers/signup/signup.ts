@@ -9,7 +9,7 @@ export class SignUpController implements Controller {
     private readonly addAccount: AddAccount
   ) {}
 
-  handle = (httpRequest: HttpRequest): HttpResponse => {
+  handle = async (httpRequest: HttpRequest): Promise<HttpResponse> => {
     try {
       const requiredField = ['name', 'email', 'password', 'passwordConfirmation', 'isProfessional']
       for (const field of requiredField) {
@@ -34,7 +34,7 @@ export class SignUpController implements Controller {
       if (!isValid) return badRequest(new InvalidParamError('email'))
       const isBoolean = this.booleanValidator.isBoolean(isProfessional)
       if (!isBoolean) return badRequest(new InvalidParamError('isProfessional'))
-      const account = this.addAccount.add({
+      const account = await this.addAccount.add({
         name,
         email,
         password,
