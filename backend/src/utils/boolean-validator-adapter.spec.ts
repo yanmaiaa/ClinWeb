@@ -1,5 +1,6 @@
 import { BooleanValidatorAdapter } from './boolean-validator-adapter'
 import validator from 'validator'
+import { BooleanValidator } from '../presentation/protocols'
 
 jest.mock('validator', () => ({
   isBoolean: (value: string): boolean => {
@@ -7,9 +8,13 @@ jest.mock('validator', () => ({
   }
 }))
 
+const makeSut = (): BooleanValidator => {
+  return new BooleanValidatorAdapter()
+}
+
 describe('BooleanValidatorAdapter', () => {
   test('Should return false if validator returns false', () => {
-    const sut = new BooleanValidatorAdapter()
+    const sut = makeSut()
     jest.spyOn(validator, 'isBoolean').mockReturnValueOnce(false)
 
     const isBoolean = sut.isBoolean('invalid_boolean')
@@ -17,13 +22,13 @@ describe('BooleanValidatorAdapter', () => {
   })
 
   test('Should return true if validator returns true', () => {
-    const sut = new BooleanValidatorAdapter()
+    const sut = makeSut()
     const isBoolean = sut.isBoolean('true')
     expect(isBoolean).toBe(true)
   })
 
   test('Should call isBoolean with correct value', () => {
-    const sut = new BooleanValidatorAdapter()
+    const sut = makeSut()
     const isBooleanSpy = jest.spyOn(validator, 'isBoolean')
 
     sut.isBoolean('false')
