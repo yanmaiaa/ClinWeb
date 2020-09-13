@@ -1,0 +1,35 @@
+/*Reset Inicial*/
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0px;
+  color: #fff;
+  font-family: 'Ubunto', sans-serif;
+  background: url('./assets/Background.png');
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0px;
+}
+ul li {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+button {
+  display: block;
+  font-size: 1rem;
+  font-family: 'Ubuntu', sans-serif;
+  color: #d75413;
+}
+a {
+  text-decoration: none;
+}
+.container {
+  max-width: 60rem;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
