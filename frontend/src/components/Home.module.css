@@ -11,14 +11,14 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 500px;
+  height: 31.25rem;
   background: #fff;
   clip-path: polygon(100% 0, 10% 100%, 100% 100%);
 }
 .sobre {
   font-family: 'Ubuntu', sans-serif;
-  margin-left: 150px;
-  margin-top: 230px;
+  margin-left: 9.375rem;
+  margin-top: 14.375rem;
   width: 20%;
   display: inline-block;
 }
@@ -26,10 +26,10 @@
   font-style: normal;
   font-weight: 700;
   font-size: 2.375rem;
-  width: 300px;
+  width: 18.75rem;
 }
 .sobre p {
-  width: 400px;
+  width: 25rem;
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 300;
@@ -41,44 +41,44 @@
   font-size: 1rem;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   text-decoration: none;
-  height: 50px;
+  height: 3.125rem;
   background: #d75413;
   border-radius: 25px;
   border: 1px solid #031f73;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 4);
   color: #fff;
-  padding: 12px 30px;
+  padding: 0.75rem 1.875rem;
 }
 .but:hover {
   color: #031f73;
   font-weight: bold;
 }
 .nav {
-  margin-top: 35px;
+  margin-top: 2.1875rem;
 }
 .carousel_content {
-  width: 660px;
+  width: 41.25rem;
   display: flex;
   align-items: center;
   flex-direction: column;
   float: right;
-  margin-left: 200px;
-  margin-top: 142px;
+  margin-left: 12.5rem;
+  margin-top: 8.875rem;
   z-index: 1;
 }
 .carousel_content p {
   font-size: 1.375rem;
   color: #031f73;
-  margin-top: 45px;
+  margin-top: 2.8125rem;
 }
 .carousel_content b {
   color: #d75413;
 }
 .line {
   position: absolute;
-  width: 1100px;
+  width: 68.75rem;
   height: 1.55px;
-  left: -150px;
+  left: -9.375rem;
   top: -1.77px;
   border: 3px solid #ffffff;
   transform: rotate(64.15deg);
