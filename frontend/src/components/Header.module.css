@@ -1,17 +1,16 @@
 .header {
   position: fixed;
-  background: transparent;
+  background: #031f73;
   width: 100%;
-  height: 5rem;
+  height: 79px;
   top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1;
 }
 .logo {
   padding: 0.4rem 0;
-  padding-left: 8.75rem;
+  margin-left: 8.75rem;
 }
 .nav {
   display: flex;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Style from './Home.module.css';
-import { ReactComponent as Img } from '../assets/img01.svg';
+import { ReactComponent as Img } from '../assets/carousel-01.svg';
 import { Link } from 'react-router-dom';
 import Head from './Head';
 
