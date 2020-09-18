@@ -8,7 +8,7 @@ Backend - SignUp API:
 
 ## Sign Up Desing:
 
-![](./.github/SignUp_Design.png)
+![](./.github/SignUp_Design_fix.png)
 
 ## Tests Coverage:
 
