@@ -1,23 +1,44 @@
 import { LogErrorRepository } from '../../data/protocols/log-repository'
-import { serverError } from '../../presentation/helpers/http-helper'
+import { AccountModel } from '../../domain/models/account'
+import { ok, serverError } from '../../presentation/helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '../../presentation/protocols'
 import { LogControllerDecorator } from './log'
+
+const makeFakeServerError = (): HttpResponse => {
+  const fakeError = new Error()
+  fakeError.stack = 'any_stack'
+  return serverError(fakeError)
+}
+
+const makefakeProfessionalAccount = (): AccountModel => ({
+  id: 'valid_id',
+  name: 'any_name',
+  email: 'any_email@mail.com',
+  password: 'any_password',
+  isProfessional: 'true',
+  professionName: 'any_profession'
+})
+
+const makeFakeRequest = (): HttpRequest => ({
+  body: {
+    name: 'any_name',
+    email: 'any_email@mail.com',
+    password: 'any_password',
+    passwordConfirmation: 'any_password',
+    isProfessional: 'true',
+    professionName: 'Engineer'
+  }
+})
 
 const makeControllerStub = (): Controller => {
   class ControllerStub implements Controller {
     handle = async (httpRequest: HttpRequest): Promise<HttpResponse> => {
-      const httpResponse: HttpResponse = {
-        statusCode: 200,
-        body: {
-          name: 'Joan Pedro'
-        }
-      }
-      return new Promise(resolve => resolve(httpResponse))
+      return new Promise(resolve => resolve(ok(makefakeProfessionalAccount())))
     }
   }
-
   return new ControllerStub()
 }
+
 const makeLogErrorRepositoryStub = (): LogErrorRepository => {
   class LogErrorRepositoryStub implements LogErrorRepository {
     log = async (stack: string): Promise<void> => {
@@ -50,58 +71,23 @@ describe('LogController Decorator', () => {
   test('Should call controller handle', async () => {
     const { sut, controllerStub } = makeSut()
     const handleSpy = jest.spyOn(controllerStub, 'handle')
-    const httpRequest: HttpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password',
-        isProfessional: 'true',
-        professionName: 'Engineer'
-      }
-    }
+    const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
     expect(handleSpy).toHaveBeenCalledWith(httpRequest)
   })
 
   test('Should return the same result of the controller', async () => {
     const { sut } = makeSut()
-    const httpRequest: HttpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password',
-        isProfessional: 'true',
-        professionName: 'Engineer'
-      }
-    }
+    const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual({
-      statusCode: 200,
-      body: {
-        name: 'Joan Pedro'
-      }
-    })
+    expect(httpResponse).toEqual(ok(makefakeProfessionalAccount()))
   })
 
   test('Should call LogErrorRepository with correct error if controller returns a server error', async () => {
     const { sut, controllerStub, logErrorRepositoryStub } = makeSut()
-    const fakeError = new Error()
-    fakeError.stack = 'any_stack'
-    const error = serverError(fakeError)
     const logSpy = jest.spyOn(logErrorRepositoryStub, 'log')
-    jest.spyOn(controllerStub, 'handle').mockReturnValueOnce(new Promise(resolve => resolve(error)))
-    const httpRequest: HttpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password',
-        isProfessional: 'true',
-        professionName: 'Engineer'
-      }
-    }
+    jest.spyOn(controllerStub, 'handle').mockReturnValueOnce(new Promise(resolve => resolve(makeFakeServerError())))
+    const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
     expect(logSpy).toHaveBeenCalledWith('any_stack')
   })
