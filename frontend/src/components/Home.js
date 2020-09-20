@@ -1,15 +1,14 @@
 import React from 'react';
 import Style from './Home.module.css';
-import { ReactComponent as Img } from '../assets/img01.svg';
+import { ReactComponent as Img } from '../assets/carousel-01.svg';
 import { Link } from 'react-router-dom';
 import Head from './Head';
 
 const Home = () => {
   return (
-    <section>
+    <section className={Style.background}>
       <Head title="Página Inicial" />
-      <div className={Style.line}></div>
-      <div className={Style.background}>
+      <div>
         <div className={Style.sobre}>
           <h1>Nós providenciamos acessibilidade!</h1>
           <p>O profissional ao seu alcance.</p>
