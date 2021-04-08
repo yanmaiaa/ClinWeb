@@ -1,0 +1,18 @@
+.carousel_content {
+  width: 660px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  float: right;
+  margin-left: 200px;
+  margin-top: 142px;
+  z-index: 1;
+}
+.carousel_content p {
+  font-size: 22px;
+  color: #031f73;
+  margin-top: 45px;
+}
+.carousel_content b {
+  color: #d75413;
+}

@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Home from './components/Home';
+import Header from './Components/Header';
+import Home from './Components/Home';
+import Footer from './Components/Footer';
 
 function App() {
   return (
@@ -11,11 +11,12 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="inicio" element={<Home />} />
         </Routes>
         <Footer />
       </BrowserRouter>
     </div>
   );
 }
+
 export default App;

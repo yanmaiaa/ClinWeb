@@ -1,31 +1,23 @@
 import React from 'react';
-import Style from './Home.module.css';
-import { ReactComponent as Img } from '../assets/img01.svg';
-import { Link } from 'react-router-dom';
-import Head from './Head';
+import { NavLink } from 'react-router-dom';
+import style from './Home.module.css';
+import CarouselSlider from './CarouselSlider';
 
 const Home = () => {
   return (
     <section>
-      <Head title="Página Inicial" />
-      <div className={Style.line}></div>
-      <div className={Style.background}>
-        <div className={Style.sobre}>
+      <div className={style.line}></div>
+      <div className={style.background}>
+        <div className={style.sobre}>
           <h1>Nós providenciamos acessibilidade!</h1>
           <p>O profissional ao seu alcance.</p>
-          <nav className={Style.nav}>
-            <Link className={Style.but} to="/cadastro">
+          <nav className={style.nav}>
+            <NavLink className={style.btnstart} to="/cadastro">
               Comece agora
-            </Link>
+            </NavLink>
           </nav>
         </div>
-        <div className={Style.carousel_content}>
-          <Img />
-          <p>
-            Encontre o profissional que você precisa na <b>palma</b> das suas
-            mãos.
-          </p>
-        </div>
+        <CarouselSlider />
       </div>
     </section>
   );

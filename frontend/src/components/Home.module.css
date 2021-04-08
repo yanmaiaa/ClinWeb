@@ -1,10 +1,28 @@
+@keyframes bouncestart {
+  0%,
+  20%,
+  60%,
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+  70% {
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+  }
+}
 .background {
   position: relative;
+  display: flex;
   width: 100%;
   height: 100vh;
   background: #031f73;
-  display: flex;
 }
+
 .background::before {
   content: '';
   position: absolute;
@@ -15,12 +33,21 @@
   background: #fff;
   clip-path: polygon(100% 0, 10% 100%, 100% 100%);
 }
+.line {
+  position: absolute;
+  width: 68.75rem;
+  left: -150px;
+  top: -1.77px;
+  border: 3px solid #fff;
+  transform: rotate(64.15deg);
+  z-index: 1;
+}
 .sobre {
+  display: inline-block;
   font-family: 'Ubuntu', sans-serif;
   margin-left: 9.375rem;
   margin-top: 14.375rem;
   width: 20%;
-  display: inline-block;
 }
 .sobre h1 {
   font-style: normal;
@@ -33,54 +60,30 @@
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 300;
-  padding: 0px;
+  padding: 0rem;
   padding-top: 0.9375rem;
 }
-.but {
-  font-weight: bold;
-  font-size: 1rem;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+.nav {
+  margin-top: 25px;
+  display: flex;
+}
+.btnstart {
+  font-weight: 500;
+  font-size: 20px;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
   text-decoration: none;
-  height: 3.125rem;
+  height: 45px;
   background: #d75413;
   border-radius: 25px;
   border: 1px solid #031f73;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 4);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 2);
   color: #fff;
-  padding: 0.75rem 1.875rem;
+  padding: 8px 25px;
+  padding-bottom: 13px;
 }
-.but:hover {
+.btnstart:hover {
   color: #031f73;
-  font-weight: bold;
-}
-.nav {
-  margin-top: 2.1875rem;
-}
-.carousel_content {
-  width: 41.25rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  float: right;
-  margin-left: 12.5rem;
-  margin-top: 8.875rem;
-  z-index: 1;
-}
-.carousel_content p {
-  font-size: 1.375rem;
-  color: #031f73;
-  margin-top: 2.8125rem;
-}
-.carousel_content b {
-  color: #d75413;
-}
-.line {
-  position: absolute;
-  width: 68.75rem;
-  height: 1.55px;
-  left: -9.375rem;
-  top: -1.77px;
-  border: 3px solid #ffffff;
-  transform: rotate(64.15deg);
-  z-index: 1;
+  font-style: 500;
+  text-shadow: none;
+  animation: bouncestart 1s;
 }

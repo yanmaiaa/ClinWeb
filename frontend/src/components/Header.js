@@ -1,47 +1,47 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import Styles from './Header.module.css';
-import { ReactComponent as Clin } from '../assets/Logo-Test03.svg';
-import { ReactComponent as Barra } from '../assets/Linha.svg';
+import styles from './Header.module.css';
+import { ReactComponent as Clin } from '../Assets/Logo-header.svg';
+import { ReactComponent as Barra } from '../Assets/Linha.svg';
 
 const Header = () => {
   return (
-    <header className={Styles.header}>
-      <Link className={Styles.logo} to="/" area-label="Clin - Home">
+    <header className={styles.header}>
+      <Link className={styles.logo} to="inicio" area-label="Clin - Home">
         <Clin />
       </Link>
-      <nav className={Styles.nav}>
+      <nav className={styles.nav}>
         <NavLink
-          className={Styles.menu}
+          className={styles.menu}
           activeStyle={{ color: ' #d75413' }}
           to="inicio"
         >
           Início
         </NavLink>
         <NavLink
-          className={Styles.menu}
+          className={styles.menu}
           activeStyle={{ color: ' #d75413' }}
           to="sobre"
         >
           Sobre
         </NavLink>
         <NavLink
-          className={Styles.menu}
+          className={styles.menu}
           activeStyle={{ color: ' #d75413' }}
           to="info"
         >
           Info
         </NavLink>
-        <Barra className={Styles.barra} />
+        <Barra className={styles.barra} />
         <NavLink
-          className={Styles.menu}
+          className={styles.menu}
           activeStyle={{ color: ' #d75413' }}
           to="entrar"
         >
           Entrar
         </NavLink>
         <NavLink
-          className={Styles.cadastro}
+          className={styles.cadastro}
           activeStyle={{ color: ' #031f73' }}
           to="cadastro"
         >
